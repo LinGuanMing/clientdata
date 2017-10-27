@@ -9,6 +9,10 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<form action="/data/index" method="get">
+    查詢：<input type="search" name="keyword" />
+    <input type="submit" value="搜尋" />
+</form>
 <table class="table">
     <tr>
         <th>
