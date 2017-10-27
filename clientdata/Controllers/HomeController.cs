@@ -26,5 +26,20 @@ namespace clientdata.Controllers
 
             return View();
         }
+
+        public ActionResult data()
+        {
+            return View();
+        }
+
+        public ActionResult contactmanager()
+        {
+            return View();
+        }
+
+        public ActionResult bankaccount()
+        {
+            return View();
+        }
     }
 }
