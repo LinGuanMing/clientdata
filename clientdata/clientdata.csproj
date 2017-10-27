@@ -176,6 +176,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\bankmanagerController.cs" />
     <Compile Include="Models\client.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -191,6 +192,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>client.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\contactmanagerController.cs" />
+    <Compile Include="Models\dataController.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\sysdiagrams.cs">
@@ -287,6 +290,21 @@
     <Content Include="Views\Home\data.cshtml" />
     <Content Include="Views\Home\contactmanager.cshtml" />
     <Content Include="Views\Home\bankaccount.cshtml" />
+    <Content Include="Views\data\Create.cshtml" />
+    <Content Include="Views\data\Delete.cshtml" />
+    <Content Include="Views\data\Details.cshtml" />
+    <Content Include="Views\data\Edit.cshtml" />
+    <Content Include="Views\data\Index.cshtml" />
+    <Content Include="Views\contactmanager\Create.cshtml" />
+    <Content Include="Views\contactmanager\Delete.cshtml" />
+    <Content Include="Views\contactmanager\Details.cshtml" />
+    <Content Include="Views\contactmanager\Edit.cshtml" />
+    <Content Include="Views\contactmanager\Index.cshtml" />
+    <Content Include="Views\bankmanager\Create.cshtml" />
+    <Content Include="Views\bankmanager\Delete.cshtml" />
+    <Content Include="Views\bankmanager\Details.cshtml" />
+    <Content Include="Views\bankmanager\Edit.cshtml" />
+    <Content Include="Views\bankmanager\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
