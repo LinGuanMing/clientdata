@@ -11,15 +11,30 @@ namespace clientdata.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class 客戶聯絡人
     {
         public int Id { get; set; }
+
         public int 客戶Id { get; set; }
+
         public string 職稱 { get; set; }
+
+        [Required]
         public string 姓名 { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"\w+\@\w+", ErrorMessage = "請輸入正確EMAIL！")]
         public string Email { get; set; }
+
+        [Required]
+        [RegularExpression(@"^09\d{8}$", ErrorMessage = "請輸入正確手機格式！")]
         public string 手機 { get; set; }
+
+        [Required]
+        [RegularExpression(@"^0\d{8}$", ErrorMessage = "請輸入正確市內電話格式！")]
         public string 電話 { get; set; }
     
         public virtual 客戶資料 客戶資料 { get; set; }
