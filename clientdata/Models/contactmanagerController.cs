@@ -47,15 +47,19 @@ namespace clientdata.Models
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
+        public ActionResult Create([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人, [Bind(Include = "Email")]string email)
         {
-            if (ModelState.IsValid)
+            var data = db.客戶聯絡人.FirstOrDefault(x => x.Email == email);
+            if (ModelState.IsValid && data == null)
             {
                 db.客戶聯絡人.Add(客戶聯絡人);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            if (data != null)
+            {
+                ModelState.AddModelError("Email", "聯絡人資料已有相同Email！");
+            }
             ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
             return View(客戶聯絡人);
         }
@@ -81,13 +85,18 @@ namespace clientdata.Models
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
+        public ActionResult Edit([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人, [Bind(Include = "Email")]string email)
         {
-            if (ModelState.IsValid)
+            var data = db.客戶聯絡人.FirstOrDefault(x => x.Email == email);
+            if (ModelState.IsValid && data == null)
             {
                 db.Entry(客戶聯絡人).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+            if (data != null)
+            {
+                ModelState.AddModelError("Email", "聯絡人資料已有相同Email！");
             }
             ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
             return View(客戶聯絡人);

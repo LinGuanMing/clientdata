@@ -19,6 +19,7 @@ namespace clientdata.Models
 
         public int 客戶Id { get; set; }
 
+        [Required]
         public string 職稱 { get; set; }
 
         [Required]
