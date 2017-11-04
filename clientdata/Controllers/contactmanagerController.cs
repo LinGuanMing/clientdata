@@ -47,9 +47,9 @@ namespace clientdata.Models
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人, [Bind(Include = "Email")]string email)
+        public ActionResult Create([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
         {
-            var data = db.客戶聯絡人.FirstOrDefault(x => x.Email == email);
+            var data = db.客戶聯絡人.FirstOrDefault(x => x.Email == 客戶聯絡人.Email);
             if (ModelState.IsValid && data == null)
             {
                 db.客戶聯絡人.Add(客戶聯絡人);

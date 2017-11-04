@@ -176,7 +176,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\bankmanagerController.cs" />
+    <Compile Include="Controllers\bankmanagerController.cs" />
     <Compile Include="Models\client.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -192,8 +192,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>client.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\contactmanagerController.cs" />
-    <Compile Include="Models\dataController.cs" />
+    <Compile Include="Controllers\contactmanagerController.cs" />
+    <Compile Include="Controllers\dataController.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\sysdiagrams.cs">
