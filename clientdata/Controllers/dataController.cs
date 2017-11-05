@@ -39,8 +39,6 @@ namespace clientdata.Models
         // GET: data/Create
         public ActionResult Create()
         {
-            List<string> list = new List<string> { "公司", "個人" };
-            ViewBag.分類 = new SelectList(list, list);
             return View();
         }
 
