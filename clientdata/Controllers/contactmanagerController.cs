@@ -69,14 +69,14 @@ namespace clientdata.Models
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
         {
-            var data = db.客戶聯絡人.Where(x => x.IsDeleted != true).FirstOrDefault(x => x.Email == 客戶聯絡人.Email);
-            if (ModelState.IsValid && data == null)
+            var data = db.客戶聯絡人.Where(x => x.IsDeleted != true && x.Email == 客戶聯絡人.Email).Count();
+            if (ModelState.IsValid && data == 0)
             {
                 db.客戶聯絡人.Add(客戶聯絡人);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            if (data != null)
+            if (data != 0)
             {
                 ModelState.AddModelError("Email", "聯絡人資料已有相同Email！");
             }
@@ -107,16 +107,25 @@ namespace clientdata.Models
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
         {
-            var data = db.客戶聯絡人.Where(x => x.IsDeleted != true).FirstOrDefault(x => x.Email == 客戶聯絡人.Email);
-            if (ModelState.IsValid && data == null)
+            var data = db.客戶聯絡人.Where(x => x.IsDeleted != true && x.Email == 客戶聯絡人.Email);
+            if (ModelState.IsValid && data.Count() == 0)
             {
                 db.Entry(客戶聯絡人).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            if (data != null)
+            if (data.Count() != 0)
             {
-                ModelState.AddModelError("Email", "聯絡人資料已有相同Email！");
+                if (data.Where(x => x.Id == 客戶聯絡人.Id).Select(x => x.Email).FirstOrDefault() == 客戶聯絡人.Email)
+                {
+                    db.Entry(客戶聯絡人).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("Email", "聯絡人資料已有相同Email！");
+                }
             }
             ViewBag.客戶Id = new SelectList(db.客戶資料.Where(x => x.IsDeleted != true), "Id", "客戶名稱", 客戶聯絡人.客戶Id);
             return View(客戶聯絡人);
