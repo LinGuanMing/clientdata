@@ -25,8 +25,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.分類, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.分類, new { htmlAttributes = new { @class = "form-control" } })
-                @*@Html.DropDownList("分類", null, htmlAttributes: new { @class = "form-control" })*@
+                @*@Html.EditorFor(model => model.分類, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownList("分類", new SelectList(new List<object> { new { value = "公司", text = "公司" }, new { value = "個人", text = "個人" } }, "value", "text", "個人"), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.分類, "", new { @class = "text-danger" })
             </div>
         </div>
