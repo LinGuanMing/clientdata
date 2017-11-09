@@ -58,7 +58,7 @@ namespace clientdata.Models
         // GET: contactmanager/Create
         public ActionResult Create()
         {
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱");
+            ViewBag.客戶Id = new SelectList(db.客戶資料.Where(x => x.IsDeleted != true), "Id", "客戶名稱");
             return View();
         }
 
@@ -80,7 +80,7 @@ namespace clientdata.Models
             {
                 ModelState.AddModelError("Email", "聯絡人資料已有相同Email！");
             }
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
+            ViewBag.客戶Id = new SelectList(db.客戶資料.Where(x => x.IsDeleted != true), "Id", "客戶名稱", 客戶聯絡人.客戶Id);
             return View(客戶聯絡人);
         }
 
@@ -96,7 +96,7 @@ namespace clientdata.Models
             {
                 return HttpNotFound();
             }
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
+            ViewBag.客戶Id = new SelectList(db.客戶資料.Where(x => x.IsDeleted != true), "Id", "客戶名稱", 客戶聯絡人.客戶Id);
             return View(客戶聯絡人);
         }
 
@@ -118,7 +118,7 @@ namespace clientdata.Models
             {
                 ModelState.AddModelError("Email", "聯絡人資料已有相同Email！");
             }
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
+            ViewBag.客戶Id = new SelectList(db.客戶資料.Where(x => x.IsDeleted != true), "Id", "客戶名稱", 客戶聯絡人.客戶Id);
             return View(客戶聯絡人);
         }
 

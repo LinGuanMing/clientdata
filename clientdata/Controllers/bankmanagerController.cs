@@ -72,7 +72,7 @@ namespace clientdata.Models
             {
                 return HttpNotFound();
             }
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶銀行資訊.客戶Id);
+            ViewBag.客戶Id = new SelectList(db.客戶資料.Where(x => x.IsDeleted != true), "Id", "客戶名稱", 客戶銀行資訊.客戶Id);
             return View(客戶銀行資訊);
         }
 
@@ -89,7 +89,7 @@ namespace clientdata.Models
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶銀行資訊.客戶Id);
+            ViewBag.客戶Id = new SelectList(db.客戶資料.Where(x => x.IsDeleted != true), "Id", "客戶名稱", 客戶銀行資訊.客戶Id);
             return View(客戶銀行資訊);
         }
 
