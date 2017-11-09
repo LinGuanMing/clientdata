@@ -14,11 +14,17 @@ namespace clientdata.Models
         private clientEntities db = new clientEntities();
 
         // GET: data
-        public ActionResult Index(string keyword)
+        public ActionResult Index(string keyword, string 分類)
         {
-            var data = db.客戶資料.Where(c => c.客戶名稱.Contains(keyword));
-            if (!string.IsNullOrEmpty(keyword)) { return View("index", data); }
-            else { return View(db.客戶資料.ToList()); }
+            var data = db.客戶資料.Where(c => c.客戶名稱.Contains(keyword) && c.分類.Contains(分類));
+            if (!string.IsNullOrEmpty(keyword) || 分類 != null && 分類 != "0")
+            {
+                return View("index", data);
+            }
+            else
+            {
+                return View(db.客戶資料.ToList());
+            }
         }
 
         // GET: data/Details/5

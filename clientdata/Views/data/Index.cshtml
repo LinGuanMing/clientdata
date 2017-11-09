@@ -9,7 +9,8 @@
 <p>
     @Html.ActionLink("Create New", "Create",null,new { @class= "btn btn-primary" })
 </p>
-<form action="/data/index" method="get">
+<form class="form-inline" action="/data/index" method="get">
+    客戶分類：@Html.DropDownList("分類", new SelectList(new List<object> { new { value = "0", text = "請選擇" }, new { value = "公司", text = "公司" }, new { value = "個人", text = "個人" } }, "value", "text", "0"), htmlAttributes: new { @class = "form-control", @style = "width:7em" })
     查詢：<input type="search" name="keyword" />
     <input class="btn btn-primary" type="submit" value="搜尋" />
 </form>

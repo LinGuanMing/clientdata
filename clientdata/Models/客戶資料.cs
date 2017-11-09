@@ -27,23 +27,19 @@ namespace clientdata.Models
         [Required]
         public string 客戶名稱 { get; set; }
 
+        [Required]
         public string 分類 { get; set; }
 
         public string 統一編號 { get; set; }
-
-        [Required]
-        [RegularExpression(@"^09\d{8}$", ErrorMessage = "請輸入正確手機格式！")]
-        [Display(Name = "手機")]
+        
         public string 電話 { get; set; }
 
         public string 傳真 { get; set; }
-
-        [Required]
+        
         public string 地址 { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        [RegularExpression(@"\w+\@\w+", ErrorMessage = "請輸入正確EMAIL！")]
         public string Email { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
