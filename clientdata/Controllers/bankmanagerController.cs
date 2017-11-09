@@ -16,7 +16,7 @@ namespace clientdata.Models
         // GET: bankmanager
         public ActionResult Index()
         {
-            var 客戶銀行資訊 = db.客戶銀行資訊.Include(客 => 客.客戶資料);
+            var 客戶銀行資訊 = db.客戶銀行資訊.Where(x => x.IsDeleted != true).Include(客 => 客.客戶資料);
             return View(客戶銀行資訊.ToList());
         }
 
@@ -38,7 +38,7 @@ namespace clientdata.Models
         // GET: bankmanager/Create
         public ActionResult Create()
         {
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱");
+            ViewBag.客戶Id = new SelectList(db.客戶資料.Where(x => x.IsDeleted != true), "Id", "客戶名稱");
             return View();
         }
 
@@ -113,8 +113,8 @@ namespace clientdata.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            客戶銀行資訊 客戶銀行資訊 = db.客戶銀行資訊.Find(id);
-            db.客戶銀行資訊.Remove(客戶銀行資訊);
+            //客戶銀行資訊 客戶銀行資訊 = db.客戶銀行資訊.Find(id);
+            db.客戶銀行資訊.Where(x => x.Id == id).ToList().ForEach(x => x.IsDeleted = true);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

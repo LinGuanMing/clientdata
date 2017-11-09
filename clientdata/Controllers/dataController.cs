@@ -16,14 +16,14 @@ namespace clientdata.Models
         // GET: data
         public ActionResult Index(string keyword, string 分類)
         {
-            var data = db.客戶資料.Where(c => c.客戶名稱.Contains(keyword) && c.分類.Contains(分類));
+            var data = db.客戶資料.Where(c => c.客戶名稱.Contains(keyword) && c.分類.Contains(分類) && c.IsDeleted != true);
             if (!string.IsNullOrEmpty(keyword) || 分類 != null)
             {
                 return View("index", data);
             }
             else
             {
-                return View(db.客戶資料.ToList());
+                return View(db.客戶資料.Where(x => x.IsDeleted != true).ToList());
             }
         }
 
@@ -116,8 +116,8 @@ namespace clientdata.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            客戶資料 客戶資料 = db.客戶資料.Find(id);
-            db.客戶資料.Remove(客戶資料);
+            //客戶資料 客戶資料 = db.客戶資料.Find(id);
+            db.客戶資料.Where(x => x.Id == id).ToList().ForEach(x => x.IsDeleted = true);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -16,7 +16,7 @@ namespace clientdata.Models
         // GET: contactmanager
         public ActionResult Index(string keyword, string 職稱)
         {
-            var data = from x in db.客戶聯絡人
+            var data = from x in db.客戶聯絡人.Where(x => x.IsDeleted != true)
                        select x.職稱;
             var list = new List<object>();
             list.Add(new { value = "", text = "全部" });
@@ -26,9 +26,9 @@ namespace clientdata.Models
             }
             ViewData["職稱"] = new SelectList(list, "value", "text", 0);
 
-            var view = db.客戶聯絡人.Where(x => x.姓名.Contains(keyword) && x.職稱.Contains(職稱));
+            var view = db.客戶聯絡人.Where(x => x.姓名.Contains(keyword) && x.職稱.Contains(職稱) && x.IsDeleted != true);
 
-            var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料);
+            var 客戶聯絡人 = db.客戶聯絡人.Where(x => x.IsDeleted != true).Include(客 => 客.客戶資料);
 
             if (!string.IsNullOrEmpty(keyword) || 職稱 != null)
             {
@@ -69,7 +69,7 @@ namespace clientdata.Models
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
         {
-            var data = db.客戶聯絡人.FirstOrDefault(x => x.Email == 客戶聯絡人.Email);
+            var data = db.客戶聯絡人.Where(x => x.IsDeleted != true).FirstOrDefault(x => x.Email == 客戶聯絡人.Email);
             if (ModelState.IsValid && data == null)
             {
                 db.客戶聯絡人.Add(客戶聯絡人);
@@ -107,7 +107,7 @@ namespace clientdata.Models
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
         {
-            var data = db.客戶聯絡人.FirstOrDefault(x => x.Email == 客戶聯絡人.Email);
+            var data = db.客戶聯絡人.Where(x => x.IsDeleted != true).FirstOrDefault(x => x.Email == 客戶聯絡人.Email);
             if (ModelState.IsValid && data == null)
             {
                 db.Entry(客戶聯絡人).State = EntityState.Modified;
@@ -142,8 +142,8 @@ namespace clientdata.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            客戶聯絡人 客戶聯絡人 = db.客戶聯絡人.Find(id);
-            db.客戶聯絡人.Remove(客戶聯絡人);
+            //客戶聯絡人 客戶聯絡人 = db.客戶聯絡人.Find(id);
+            db.客戶聯絡人.Where(x => x.Id == id).ToList().ForEach(x => x.IsDeleted = true);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
