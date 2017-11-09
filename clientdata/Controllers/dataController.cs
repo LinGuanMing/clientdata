@@ -17,7 +17,7 @@ namespace clientdata.Models
         public ActionResult Index(string keyword, string 分類)
         {
             var data = db.客戶資料.Where(c => c.客戶名稱.Contains(keyword) && c.分類.Contains(分類));
-            if (!string.IsNullOrEmpty(keyword) || 分類 != null && 分類 != "0")
+            if (!string.IsNullOrEmpty(keyword) || 分類 != null)
             {
                 return View("index", data);
             }

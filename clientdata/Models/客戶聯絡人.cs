@@ -27,7 +27,6 @@ namespace clientdata.Models
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        [RegularExpression(@"\w+\@\w+", ErrorMessage = "請輸入正確EMAIL！")]
         public string Email { get; set; }
 
         [Required]

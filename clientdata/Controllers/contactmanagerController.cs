@@ -14,10 +14,30 @@ namespace clientdata.Models
         private clientEntities db = new clientEntities();
 
         // GET: contactmanager
-        public ActionResult Index()
+        public ActionResult Index(string keyword, string 職稱)
         {
+            var data = from x in db.客戶聯絡人
+                       select x.職稱;
+            var list = new List<object>();
+            list.Add(new { value = "", text = "全部" });
+            foreach (var item in data.Distinct())
+            {
+                list.Add(new { value = item, text = item });
+            }
+            ViewData["職稱"] = new SelectList(list, "value", "text", 0);
+
+            var view = db.客戶聯絡人.Where(x => x.姓名.Contains(keyword) && x.職稱.Contains(職稱));
+
             var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料);
-            return View(客戶聯絡人.ToList());
+
+            if (!string.IsNullOrEmpty(keyword) || 職稱 != null)
+            {
+                return View("index", view);
+            }
+            else
+            {
+                return View(客戶聯絡人.ToList());
+            }
         }
 
         // GET: contactmanager/Details/5
